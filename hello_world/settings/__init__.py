@@ -1,6 +1,7 @@
-class Conf(dict):
-    __getattr__ = dict.__getitem__
-    __setattr__ = dict.__setitem__
+from tornado.util import ObjectDict
+
+
+class Conf(ObjectDict):
 
     def load(self, settings_module='base'):
         from importlib import import_module
@@ -9,7 +10,6 @@ class Conf(dict):
 
 
 def setup_settings(pull_options=True):
-
     from tornado.log import enable_pretty_logging
     from tornado.options import options
 
@@ -20,10 +20,10 @@ def setup_settings(pull_options=True):
         settings.load(options.settings)
 
         if pull_options:
-            # let's pull options from the settings
+            # let's pull options from the settings and vice versa
             for option_name in options:
-                if option_name in settings:
-                    setattr(options, option_name, settings[option_name])
+                src, dst = (settings, options) if option_name in settings else (options, settings)
+                setattr(dst, option_name, src[option_name])
             # resets logging configuration
             enable_pretty_logging()
 
@@ -31,4 +31,6 @@ def setup_settings(pull_options=True):
 
 
 settings = Conf()
-__all__ = ['settings', 'setup_settings']
+
+del ObjectDict
+__all__ = ['settings', 'setup_settings', 'Conf']
