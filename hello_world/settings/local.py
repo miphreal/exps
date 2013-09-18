@@ -1,6 +1,3 @@
 from .base import *
 
-SETTING = 'local'
-
-
-logging = 'debug'
+setting1 = 'local setting'
