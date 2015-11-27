@@ -1,0 +1,4 @@
+# set the runtime language. Python workers use "python"
+runtime "python"
+# exec is the file that will be executed:
+exec "hello_worker.py"
