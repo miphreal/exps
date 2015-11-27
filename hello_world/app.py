@@ -10,16 +10,16 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write('Hello, world')
 
-application = tornado.web.Application([
-    (r"/", MainHandler),
-])
-
 if __name__ == '__main__':
     setup_settings()
     options.parse_config_file('settings/server.cfg', final=False)
     options.parse_command_line()
 
-    print settings
+    print settings.SETTING
+
+    application = tornado.web.Application([
+        (r"/", MainHandler),
+    ])
 
     application.listen(8087)
     tornado.ioloop.IOLoop.instance().start()

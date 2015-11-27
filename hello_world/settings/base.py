@@ -1,4 +1,3 @@
-BASE_SETTING = 'base'
-
+SETTING = 'base'
 
 

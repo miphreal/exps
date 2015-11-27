@@ -1,6 +1,6 @@
 from .base import *
 
-LOCAL_SETTING = 'local'
+SETTING = 'local'
 
 
 logging = 'debug'
